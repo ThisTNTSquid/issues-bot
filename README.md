@@ -7,7 +7,9 @@ I decide to make this bot, and do the development job for you :)
 
 ### Simple "Invite to Server"
 
-Click this link here: // later fill in
+Click this link here: https://discordapp.com/oauth2/authorize?client_id=436174065292804106&permissions=519232&scope=bot
+
+**Notice: this link may not work until the bot is officially released**
 
 ### Host it yourself
 

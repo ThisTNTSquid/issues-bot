@@ -10,7 +10,7 @@ let config
 try{
   config = require('./config.json')
 } catch(e){
-  console.error()
+  console.error(e)
   console.log("=========================")
   console.log('TIPS: Have you rename \'config-example.json\' to \'config.json\' yet?')
   process.exit()
@@ -18,8 +18,8 @@ try{
 
 // Bot initialization handler
 bot.on("ready", async () => {
-  console.log("Bot Started");
-  console.log('Invite the bot to your server with\n')
+  logger.info("Bot Started");
+  logger.info("Invite the bot to your server with\n");
   let link = await bot.generateInvite([
     "ADD_REACTIONS",
     "VIEW_CHANNEL",
@@ -31,7 +31,7 @@ bot.on("ready", async () => {
     "MENTION_EVERYONE",
     "ATTACH_FILES"
   ])
-  console.log(link)
+  logger.info(link);
 });
 
 bot.login(config.token)
