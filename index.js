@@ -1,6 +1,7 @@
 // load libs
 const path = require("path");
-const logger = require('./utils/logger')
+const Logger = require('./utils/logger')
+const logger = new Logger()
 // setup discord,js
 const Discord = require("discord.js");
 const bot = new Discord.Client();
