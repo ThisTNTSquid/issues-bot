@@ -2,17 +2,17 @@
 const path = require("path");
 const Log = require("log"),
   log = new Log("info");
-const sqlite = require("sqlite");
+const sqlite = require("sqlite3");
 
 // load config
 let config;
 try {
-  config = require("./config.json");
+  config = require("./config.js");
 } catch (e) {
   console.error(e);
   console.log("=========================");
   console.log(
-    "TIPS: Have you rename 'config-example.json' to 'config.json' yet?"
+    "TIPS: Have you rename 'config-example.js' to 'config.js' yet?"
   );
   process.exit();
 }
@@ -53,6 +53,26 @@ client.on("message", msg => {
   if (command == `${prefix}test`) {
     log.info(`[CMD] ${msg.author.username}: ${msg.content}`);
     msg.channel.send("You ran the test command with args: " + args.toString());
+  } else if (command == `${prefix}suggest`) {
+    // Suggestions
+    //todo Add in database logic
+    // --code
+    log.info(`[CMD] ${msg.author.username}: ${msg.content}`);
+    msg.channel.send(
+      new DiscordJS.RichEmbed()
+        .setAuthor(
+          "Suggestion #1",
+          "https://emojipedia-us.s3.amazonaws.com/thumbs/120/twitter/134/thought-balloon_1f4ad.png"
+        )
+        .setTitle("Title of the suggestion")
+        .setDescription(args.join(" ") + "\n")
+        .setColor(0x4ab6f9)
+        .setTimestamp()
+        .setFooter(msg.author.username, msg.author.avatarURL)
+    );
+    if (command==`${prefix}exit`){
+
+    }
   }
 });
 
