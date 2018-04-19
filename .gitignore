@@ -1,3 +1,5 @@
 node_modules/*
 config.json
 logs/
+feature_test/
+settings.sqlite3

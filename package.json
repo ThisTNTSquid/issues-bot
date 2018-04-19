@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "ThisTNTSquid",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon"
+  },
   "dependencies": {
     "discord.js": "^11.3.2",
     "discord.js-commando": "^0.9.0",

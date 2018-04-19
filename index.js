@@ -1,9 +1,8 @@
 // load libs
 const path = require("path");
-
-// setup discord,js
-const Discord = require("discord.js");
-const bot = new Discord.Client();
+const Log = require("log"),
+  log = new Log("info");
+const sqlite = require("sqlite");
 
 // load config
 let config;
@@ -18,12 +17,17 @@ try {
   process.exit();
 }
 
+// setup discord,js
+const DiscordJS = require("discord.js");
+const client = new DiscordJS.Client();
+const prefix = config.command_prefix;
 // Bot initialization handler
-bot.on("ready", async () => {
-  logger.info("Bot Started");
-  logger.info("Invite the bot to your server with\n");
+client.on("ready", async () => {
+  log.info("Bot Started");
+  log.info("Invite the bot to your server with\n");
+
   try {
-    let link = await bot.generateInvite([
+    let link = await client.generateInvite([
       "ADD_REACTIONS",
       "VIEW_CHANNEL",
       "SEND_MESSAGES",
@@ -34,14 +38,29 @@ bot.on("ready", async () => {
       "MENTION_EVERYONE",
       "ATTACH_FILES"
     ]);
-    logger.info(link);
+    log.info(link);
   } catch (e) {
     console.error(e);
-    
+  }
+});
+
+client.on("message", msg => {
+  if (msg.author.bot || msg.channel.type == "dm") return;
+  let msgArray = msg.content.split(" ");
+  let command = msgArray[0];
+  let args = msgArray.slice(1);
+
+  if (command == `${prefix}test`) {
+    log.info(`[CMD] ${msg.author.username}: ${msg.content}`);
+    msg.channel.send("You ran the test command with args: " + args.toString());
   }
 });
 
 // handle problems
-bot.on("error", console.error());
+client.on("error", e => console.error(e));
 
-bot.login(config.token);
+client.on("disconnect", () => {
+  process.exit();
+});
+
+client.login(config.token);
