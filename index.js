@@ -1,8 +1,15 @@
 // load libs
 const path = require("path");
-const Log = require("log"),
-  log = new Log("info");
+const Logger = require("./src/utils/Logger"),
+  log = new Logger("./logs")
 const sqlite = require("sqlite3");
+const db = new sqlite.Database("./data.db",err=>{
+  if (err){
+    console.error(err)
+  process.exit(1)}
+  log.info("Connected to database")
+
+})
 
 // load config
 let config;
@@ -22,7 +29,7 @@ const prefix = config.command_prefix;
 // Bot initialization handler
 client.on("ready", async () => {
   log.info("Bot Started");
-  log.info("Invite the bot to your server with\n");
+  log.info("Invite the bot to your server with");
 
   try {
     let link = await client.generateInvite([
@@ -57,7 +64,6 @@ client.on("message", msg => {
 
   if (command == `${prefix}test`) {
     msg.channel.send("You ran the test command with args: " + args.toString());
-
   } else if (command == `${prefix}suggest`) {
     // Suggestions
     //todo Add in database logic
@@ -75,18 +81,21 @@ client.on("message", msg => {
         .setFooter(msg.author.username, msg.author.avatarURL)
     );
   } else if (command == `${prefix}leave`) {
-    msg.channel.send("Bye")
-    client.guilds.get(msg.guild.id).leave()
-      // .then(process.exit(0));
+    if (msg.member.hasPermission("ADMINISTRATOR")) {
+      msg.channel.send(":walking: Leaving your server.... See you :(");
+      client.guilds.get(msg.guild.id).leave();
+    } else {
+      msg.channel.send("You do not have enough permission to remove me yet, please contact the server administrator if you really wanted to do this")
+    }
   }
 });
 
 // handle problems
 client.on("error", e => console.error(e));
 
-client.on('guildDelete',guild=>{
-  log.info(`[LEAVE] Bot left guild \'${guild.name}\' (${guild.id})`)
-})
+client.on("guildDelete", guild => {
+  log.info(`[LEAVE] Bot left guild \'${guild.name}\' (${guild.id})`);
+});
 
 // client.on("suggest",(msg)=>{
 //   msg.channel.send("Someone suggest something")
