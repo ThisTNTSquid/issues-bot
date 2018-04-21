@@ -80,7 +80,7 @@ client.on("message", msg => {
         .setTimestamp()
         .setFooter(msg.author.username, msg.author.avatarURL)
     );
-  } else if (command == `${prefix}leave`) {
+  } else if (command == `${prefix}leave-server`) {
     if (msg.member.hasPermission("ADMINISTRATOR")) {
       msg.channel.send(":walking: Leaving your server.... See you :(");
       client.guilds.get(msg.guild.id).leave();
