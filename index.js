@@ -1,15 +1,14 @@
 // load libs
 const path = require("path");
-const Logger = require("./src/utils/Logger"),
-  log = new Logger("./logs")
+const Logger = require("./src/utils/Logger");
 const sqlite = require("sqlite3");
-const db = new sqlite.Database("./data.db",err=>{
-  if (err){
-    console.error(err)
-  process.exit(1)}
-  log.info("Connected to database")
-
-})
+const db = new sqlite.Database("./data.db", err => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+  log.info("Connected to database");
+});
 
 // load config
 let config;
@@ -21,18 +20,20 @@ try {
   console.log("TIPS: Have you rename 'config-example.js' to 'config.js' yet?");
   process.exit(1);
 }
+const log = new Logger("./logs");
 
 // setup discord,js
 const DiscordJS = require("discord.js");
-const client = new DiscordJS.Client();
+const bot = new DiscordJS.Client();
 const prefix = config.command_prefix;
+
 // Bot initialization handler
-client.on("ready", async () => {
+bot.on("ready", async () => {
   log.info("Bot Started");
   log.info("Invite the bot to your server with");
 
   try {
-    let link = await client.generateInvite([
+    let link = await bot.generateInvite([
       "ADD_REACTIONS",
       "VIEW_CHANNEL",
       "SEND_MESSAGES",
@@ -49,7 +50,7 @@ client.on("ready", async () => {
   }
 });
 
-client.on("message", msg => {
+bot.on("message", msg => {
   if (msg.author.bot || msg.channel.type == "dm") return;
   if (msg.content.startsWith(config.command_prefix)) {
     log.info(
@@ -83,17 +84,19 @@ client.on("message", msg => {
   } else if (command == `${prefix}leave-server`) {
     if (msg.member.hasPermission("ADMINISTRATOR")) {
       msg.channel.send(":walking: Leaving your server.... See you :(");
-      client.guilds.get(msg.guild.id).leave();
+      bot.guilds.get(msg.guild.id).leave();
     } else {
-      msg.channel.send("You do not have enough permission to remove me yet, please contact the server administrator if you really wanted to do this")
+      msg.channel.send(
+        "You do not have enough permission to remove me yet, please contact the server administrator if you really wanted to do this"
+      );
     }
   }
 });
 
 // handle problems
-client.on("error", e => console.error(e));
+bot.on("error", e => console.error(e));
 
-client.on("guildDelete", guild => {
+bot.on("guildDelete", guild => {
   log.info(`[LEAVE] Bot left guild \'${guild.name}\' (${guild.id})`);
 });
 
@@ -101,4 +104,4 @@ client.on("guildDelete", guild => {
 //   msg.channel.send("Someone suggest something")
 // })
 
-client.login(config.token);
+bot.login(config.token);
