@@ -15,24 +15,24 @@ Click this link here: https://discordapp.com/oauth2/authorize?client_id=43617406
 
 ### Host it yourself
 
-1. Clone it
+#### 1. Clone it
 ```bash
 $ git clone https://github.com/ThisTNTSquid/issues-bot.git
 ```
 
-2. Register the Bot App
+#### 2. Register the Bot App
   - Go to the [Discord Developer Console](https://discordapp.com/developers/applications/me)
   - Create a new bot app
   - Make it a bot user
   - Copy the token
 
-3. Setup the config
+#### 3. Setup the config
   - Open [config-template.js](https://github.com/ThisTNTSquid/issues-bot/blob/master/config-template.js) with any editor you like
   - Paste in the bot token into the `token` entry
   - Paste your ID into the `owners` array
   - **Rename `config-tempalte.js` to `config.js`** (This is mandatory, otherwise the bot will not start)
 
-4. Launch it
+#### 4. Launch it
 If you're using NPM (the default package manager that comes along with NodeJS)
 ```bash
 $ npm install
