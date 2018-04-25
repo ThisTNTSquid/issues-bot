@@ -6,7 +6,8 @@
   "author": "ThisTNTSquid",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "start": "node index.js"
   },
   "dependencies": {
     "discord.js": "^11.3.2",
