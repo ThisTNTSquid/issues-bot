@@ -25,25 +25,24 @@ try {
 const log = new Logger("./logs");
 
 // setup discord,js
-const DiscordJS = require("discord.js");
-const bot = new DiscordJS.Client();
+const Commando = require('discord.js-commando')
+const bot = new Commando.Client({
+  owner: config.owners,
+  commandPrefix: config.command_prefix
+})
+
 const prefix = config.command_prefix;
 
 // Load commands folder
-bot.commands = new DiscordJS.Collection()
-fs.readdir("./commands/",(err,files)=>{
-  if (err) console.error(err)
-
-  let cmdfiles=glob.sync("./commands/*.js")
-  if (!cmdfiles) log.warning("No command files in the commands folder!")
-})
-
+bot.registry.registerGroups([
+  ['issues', 'Opening issues'],
+  ['utils', 'Utilities']
+]).registerDefaults()
 
 // Bot initialization handler
 bot.on("ready", async () => {
   log.info("Bot Started");
   log.info("Invite the bot to your server with");
-
   try {
     let link = await bot.generateInvite([
       "ADD_REACTIONS",
