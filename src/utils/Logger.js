@@ -45,7 +45,7 @@ class Logger {
   debug(msg) {
     if (config.debug) {
       let date = new Date();
-      let displayText = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} [INFO] ${msg}`;
+      let displayText = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} [DEBUG] ${msg}`;
       this.logStream.write(displayText + "\n", "utf-8");
       console.log(displayText);
     } else return;

@@ -2,4 +2,5 @@ node_modules/*
 config.js
 logs/
 feature_test/
-settings.sqlite3
+settings.db
+data.db
