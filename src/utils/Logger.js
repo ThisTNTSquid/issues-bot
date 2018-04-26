@@ -36,7 +36,11 @@ class Logger {
     console.log(displayText);
   }
   warning(msg) {
-    //todo Warning log
+    let date = new Date();
+    let displayText = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} [WARN] ${msg}`;
+
+    this.logStream.write(displayText + "\n", "utf-8");
+    console.log(displayText);
   }
   debug(msg) {
     if (config.debug) {

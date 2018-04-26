@@ -2,6 +2,8 @@
 const path = require("path");
 const Logger = require("./src/utils/Logger");
 const sqlite = require("sqlite3");
+const glob = require('glob')
+const fs = require('fs')
 const db = new sqlite.Database("./data.db", err => {
   if (err) {
     console.error(err);
@@ -26,6 +28,16 @@ const log = new Logger("./logs");
 const DiscordJS = require("discord.js");
 const bot = new DiscordJS.Client();
 const prefix = config.command_prefix;
+
+// Load commands folder
+bot.commands = new DiscordJS.Collection()
+fs.readdir("./commands/",(err,files)=>{
+  if (err) console.error(err)
+
+  let cmdfiles=glob.sync("./commands/*.js")
+  if (!cmdfiles) log.warning("No command files in the commands folder!")
+})
+
 
 // Bot initialization handler
 bot.on("ready", async () => {
@@ -54,7 +66,7 @@ bot.on("message", msg => {
   if (msg.author.bot || msg.channel.type == "dm") return;
   if (msg.content.startsWith(config.command_prefix)) {
     log.info(
-      `[CMD] (${msg.guild.name}->${msg.channel.name}) ${msg.author.username}: ${
+      `[CMD] (${msg.guild.name}->#${msg.channel.name}) ${msg.author.username}: ${
         msg.content
       }`
     );
