@@ -14,7 +14,8 @@ class SetChannelCommand extends Commando.Command {
       args: [
         {
           key: "type",
-          prompt: "Please enter the type for the channel: `suggest` for suggestion, and `issue` for issues like bug reports",
+          prompt:
+            "Please enter the type for the channel: `suggest` for suggestion, and `issue`/`issues` for issues like bug reports",
           type: "string"
         },
         {
@@ -35,10 +36,18 @@ class SetChannelCommand extends Commando.Command {
     if (msg.guild.channels.has(args.channel)) {
       if (args.type == "suggest") {
         msg.guild.settings.set("suggest_channel", args.channel);
-        msg.channel.send(`:white_check_mark: Suggestion channel set to #${msg.guild.channels.get(args.channel).name}(${msg.guild.channels.get(args.channel).id})`);
-      } else if (args.type == "issue") {
+        msg.channel.send(
+          `:white_check_mark: Suggestion channel set to #${
+            msg.guild.channels.get(args.channel).name
+          }(${msg.guild.channels.get(args.channel).id})`
+        );
+      } else if (args.type == "issue" || args.type == "issues") {
         msg.guild.settings.set("issue_channel", args.channel);
-        msg.channel.send(`:white_check_mark: Issues channel set to #${msg.guild.channels.get(args.channel).name}(${msg.guild.channels.get(args.channel).id})`);
+        msg.channel.send(
+          `:white_check_mark: Issues channel set to #${
+            msg.guild.channels.get(args.channel).name
+          }(${msg.guild.channels.get(args.channel).id})`
+        );
       } else {
         msg.channel.send(
           "The type of message is unknown, it should be either `suggest` or `issue`"
