@@ -114,7 +114,7 @@ bot
 
 // Load commands folder
 bot.registry
-  .registerGroups([["issues", "Opening issues"], ["misc", "Misc Commands"]])
+  .registerGroups([["issues", "Opening issues"], ["misc", "Misc Commands"],["admin","Bot Administrator"]])
   .registerDefaults()
   .registerCommandsIn(path.join(__dirname, "commands"))
   .registerTypesIn(path.join(__dirname, "types"));
