@@ -8,12 +8,12 @@ class AboutCommand extends Commando.Command{
       group: 'misc',
       memberName: 'about',
       description: 'Returns some extra details about the bot',
-      examples: ['about'],
+      examples: ['about']
     })
   }
 
   async run(msg,args){
-    msg.channel.send("You sent about")
+    msg.channel.send(msg.guild.settings.get("prefix"))
   }
 }
 

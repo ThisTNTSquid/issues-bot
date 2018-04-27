@@ -48,7 +48,9 @@ bot
   })
   .on("message", msg => {
     if (msg.author.bot || msg.channel.type == "dm") return;
-    // This logger is too old
+
+    // TODO: Add back when its able to get prefix from db -@ThisTNTSquid at 4/27/2018, 4:42:35 AM
+    //
     // if (msg.content.startsWith(config.command_prefix)) {
     //   log.info(
     //     `[CMD] (${msg.guild.name}->#${msg.channel.name}) ${
@@ -66,7 +68,7 @@ bot
     //   );
     // } else if (command == `${prefix}suggest`) {
     //   // Suggestions
-    //   //todo Add in database logic
+    // TODO: Add in database logic
     //   // --code
     //   msg.channel.send(
     //     new DiscordJS.RichEmbed()
@@ -103,10 +105,9 @@ bot
 // Database provider
 bot
   .setProvider(
-    sqlite.open(path.join(__dirname, "settings.db")).then(db => {
-      new Commando.SQLiteProvider(db);
-      log.debug("Commando hooked to sqlite database");
-    })
+    sqlite
+      .open(path.join(__dirname, "settings.db"))
+      .then(db => new Commando.SQLiteProvider(db))
   )
   .catch(console.error);
 
@@ -115,6 +116,10 @@ bot.registry
   .registerGroups([["issues", "Opening issues"], ["misc", "Misc Commands"]])
   .registerDefaults()
   .registerCommandsIn(path.join(__dirname, "commands"))
-  .registerTypesIn(path.join(__dirname,"types"))
+  .registerTypesIn(path.join(__dirname, "types"));
+
+bot.on('debug',msg=>{
+  log.debug(msg)
+})
 
 bot.login(config.token);
