@@ -62,3 +62,5 @@ class SetChannelCommand extends Commando.Command {
   }
 }
 module.exports = SetChannelCommand;
+
+//done

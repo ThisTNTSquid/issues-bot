@@ -97,6 +97,7 @@ bot
   })
   .on("guildCreate", guild => {
     log.info(`[JOIN] (+) Bot joined guild \'${guild.name}\' (${guild.id})`);
+    guild.settings.set("prefix",config.command_prefix)
   });
 
 // client.on("suggest",(msg)=>{

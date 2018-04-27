@@ -1,6 +1,6 @@
 const DiscordJS = require("discord.js");
 const Commando = require("discord.js-commando");
-const issue = require('../../src/Issue')
+const Issue = require('../../src/Issue')
 
 class SuggestCommand extends Commando.Command {
   constructor(client) {
@@ -14,7 +14,7 @@ class SuggestCommand extends Commando.Command {
       ],
       args: [
         {
-          key: "suggestion",
+          key: "content",
           prompt:
             "Please enter your suggestions in the format of ```Suggestion Title :: Suggestion Content```",
           type: "string"
@@ -22,8 +22,10 @@ class SuggestCommand extends Commando.Command {
       ]
     });
   }
-  async run(msg, args) {
-    
+  async run(msg, {content}) {
+    // TODO: Creating Suggestion -@ThisTNTSquid at 4/28/2018, 2:51:08 AM
+    // 
+    let post = new Issue(msg.guild,"suggest",content)
   }
 }
 module.exports = SuggestCommand;
