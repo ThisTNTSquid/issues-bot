@@ -1,5 +1,4 @@
 const Commando = require('discord.js-commando')
-const link = require('../../index').link
 class AboutCommand extends Commando.Command {
   constructor(client) {
     super(client, {
@@ -12,6 +11,7 @@ class AboutCommand extends Commando.Command {
   }
 
   async run(msg, args) {
+    let link = await this.client.generateInvite(require('../../src/utils/BotPermissions'))
     msg.channel.send(`Invite the bot to your serer with this link: ${link}`)
   }
 }

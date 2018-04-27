@@ -16,7 +16,7 @@ try {
   process.exit(1);
 }
 const log = new Logger("./logs");
-let link;
+
 // setup discord,js
 const Commando = require("discord.js-commando");
 const bot = new Commando.Client({
@@ -30,17 +30,7 @@ bot
     log.info("Bot Started");
     log.info("Invite the bot to your server with");
     try {
-      link = await bot.generateInvite([
-        "ADD_REACTIONS",
-        "VIEW_CHANNEL",
-        "SEND_MESSAGES",
-        "READ_MESSAGE_HISTORY",
-        "MANAGE_MESSAGES",
-        "EMBED_LINKS",
-        "USE_EXTERNAL_EMOJIS",
-        "MENTION_EVERYONE",
-        "ATTACH_FILES"
-      ]);
+      let link = await bot.generateInvite(require('./src/utils/BotPermissions'));
       log.info(link);
     } catch (e) {
       console.error(e);
@@ -125,5 +115,3 @@ bot.on("debug", msg => {
 });
 
 bot.login(config.token);
-
-module.exports=link

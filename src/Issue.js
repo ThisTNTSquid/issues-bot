@@ -1,6 +1,6 @@
 const DiscordJS = require("discord.js");
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize("data", null, null, {
+const sequelize = new Sequelize({
   dialect: "sqlite",
   storage: "../data.db"
 });
