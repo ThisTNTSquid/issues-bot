@@ -14,7 +14,8 @@ class AboutCommand extends Commando.Command {
   }
 
   async run(msg, args) {
-    msg.channel.send(new DiscordJS.RichEmbed()
+    msg.channel.send(
+      new DiscordJS.RichEmbed()
         .setColor([255, 185, 0])
         .setTitle("COFFEE")
         .setDescription("A simple discord issue tracking and management bot")
@@ -23,7 +24,8 @@ class AboutCommand extends Commando.Command {
         .addBlankField()
         .addField("Github", "https://github.com/ThisTNTSquid/issues-bot")
         .setTimestamp()
-        .setFooter("Made with 🐸 and ☕ by ThisTNTSquid"));
+        .setFooter("Made with 🐸 and ☕ by ThisTNTSquid")
+    );
   }
 }
 
