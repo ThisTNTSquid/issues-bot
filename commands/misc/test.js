@@ -21,7 +21,11 @@ class TestCommand extends Commando.Command {
     });
   }
   run(msg, args) {
-    msg.channel.send(msg.guild.settings.get("prefix"));
+    let result = 0;
+    args.numbers.forEach(n => {
+      result = result + n;
+    });
+    msg.channel.send(result);
   }
 }
 

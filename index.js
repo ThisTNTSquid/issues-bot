@@ -49,15 +49,13 @@ bot
   .on("message", msg => {
     if (msg.author.bot || msg.channel.type == "dm") return;
 
-    // TODO: Add back when its able to get prefix from db -@ThisTNTSquid at 4/27/2018, 4:42:35 AM
-    //
-    // if (msg.content.startsWith(config.command_prefix)) {
-    //   log.info(
-    //     `[CMD] (${msg.guild.name}->#${msg.channel.name}) ${
-    //       msg.author.username
-    //     }: ${msg.content}`
-    //   );
-    // }
+    if (msg.content.startsWith(msg.guild.settings.get("prefix"))) {
+      log.info(
+        `[CMD] (${msg.guild.name}->#${msg.channel.name}) ${
+          msg.author.username
+        }: ${msg.content}`
+      );
+    }
     // let msgArray = msg.content.split(" ");
     // let command = msgArray[0];
     // let args = msgArray.slice(1);
@@ -95,7 +93,10 @@ bot
   })
   .on("error", e => console.error(e))
   .on("guildDelete", guild => {
-    log.info(`[LEAVE] Bot left guild \'${guild.name}\' (${guild.id})`);
+    log.info(`[LEAVE] (-) Bot left guild \'${guild.name}\' (${guild.id})`);
+  })
+  .on("guildCreate", guild => {
+    log.info(`[JOIN] (+) Bot joined guild \'${guild.name}\' (${guild.id})`);
   });
 
 // client.on("suggest",(msg)=>{
@@ -118,8 +119,8 @@ bot.registry
   .registerCommandsIn(path.join(__dirname, "commands"))
   .registerTypesIn(path.join(__dirname, "types"));
 
-bot.on('debug',msg=>{
-  log.debug(msg)
-})
+bot.on("debug", msg => {
+  log.debug(msg);
+});
 
 bot.login(config.token);
