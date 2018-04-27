@@ -4,7 +4,7 @@ Since there is aren't any ready to use suggestion bots , or I would say bots tha
 I decide to make this bot, and do the development job for you :)
 
 ## Setup
-
+> NOTE: This setup section does not make any sense until the bot is officially released
 ### Simple "Invite to Server"
 
 This method is recommanded if you wish to use it instantly or don't want to deal with all the trivial setup procedures
