@@ -1,22 +1,17 @@
 const DiscordJS = require("discord.js");
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "../data.db"
-});
+const IssuesHandler = require("./IssuesHandler"),
+  issuesHandler = new IssuesHandler({
+    dialect: "sqlite",
+    storage: "../data.db"
+  })
+ const config = require("../config");
+
 class Issue {
-  /**
-   * Construct the Issue Object
-   * @param {CommandoGuild} guild  Commando Guild object from the message
-   * @param {string} type  Type of the issue, either "issue" or "suggest"
-   * @param {string} content  Content of the message
-   */
-  constructor(channel, type, content) {
-    this.channel = channel;
+  constructor(message, type) {
     this.type = type;
-    this.guild = channel.guild;
-    this.title = content.split("::")[0];
-    this.content = content.split("::")[1];
+    this.guild = message.guild;
+    this.title = message.split("::")[0];
+    this.content = message.split("::")[1];
   }
 
   setTitle(title) {
@@ -48,7 +43,7 @@ class Issue {
   }
   delete() {
     // TODO: Issue deletion -@ThisTNTSquid at 4/28/2018, 2:52:00 AM
-    // 
+    //
   }
 }
 module.exports = Issue;

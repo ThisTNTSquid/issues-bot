@@ -30,7 +30,9 @@ bot
     log.info("Bot Started");
     log.info("Invite the bot to your server with");
     try {
-      let link = await bot.generateInvite(require('./src/utils/BotPermissions'));
+      let link = await bot.generateInvite(
+        require("./src/utils/BotPermissions")
+      );
       log.info(link);
     } catch (e) {
       console.error(e);
@@ -71,7 +73,7 @@ bot
     //       .setFooter(msg.author.username, msg.author.avatarURL)
     //   );
     // } else if (command == `${prefix}leave-server`) {
-      
+
     // }
   })
   .on("error", e => console.error(e))
@@ -80,7 +82,7 @@ bot
   })
   .on("guildCreate", guild => {
     log.info(`[JOIN] (+) Bot joined guild \'${guild.name}\' (${guild.id})`);
-    guild.settings.set("prefix",config.command_prefix)
+    guild.settings.set("prefix", config.command_prefix);
   });
 
 // client.on("suggest",(msg)=>{
@@ -98,7 +100,11 @@ bot
 
 // Load commands folder
 bot.registry
-  .registerGroups([["issues", "Opening issues"], ["misc", "Misc Commands"],["admin","Bot Administrator"]])
+  .registerGroups([
+    ["issues", "Opening issues"],
+    ["misc", "Misc Commands"],
+    ["admin", "Bot Administrator"]
+  ])
   .registerDefaults()
   .registerCommandsIn(path.join(__dirname, "commands"))
   .registerTypesIn(path.join(__dirname, "types"));
