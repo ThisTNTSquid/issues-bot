@@ -71,14 +71,7 @@ bot
     //       .setFooter(msg.author.username, msg.author.avatarURL)
     //   );
     // } else if (command == `${prefix}leave-server`) {
-    //   if (msg.member.hasPermission("ADMINISTRATOR")) {
-    //     msg.channel.send(":walking: Leaving your server.... See you :(");
-    //     bot.guilds.get(msg.guild.id).leave();
-    //   } else {
-    //     msg.channel.send(
-    //       "You do not have enough permission to remove me yet, please contact the server administrator if you really wanted to do this"
-    //     );
-    //   }
+      
     // }
   })
   .on("error", e => console.error(e))

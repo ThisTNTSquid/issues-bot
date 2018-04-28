@@ -29,7 +29,7 @@ class SetChannelCommand extends Commando.Command {
   async run(msg, args) {
     if (!msg.member.hasPermission("ADMINISTRATOR")) {
       msg.reply(
-        "You do not have permission to do this, please ask your server administrator to do this instead"
+        "❎ You do not have permission to do this, please ask your server administrator to do this instead"
       );
       return;
     }
