@@ -4,6 +4,7 @@ const Logger = require("./src/utils/Logger");
 const sqlite = require("sqlite");
 const fs = require("fs");
 const DiscordJS = require("discord.js");
+const issueHandler = require('./src/IssuesHandler')
 
 // load config
 let config;
@@ -83,6 +84,8 @@ bot
   .on("guildCreate", guild => {
     log.info(`[JOIN] (+) Bot joined guild \'${guild.name}\' (${guild.id})`);
     guild.settings.set("prefix", config.command_prefix);
+    issueHandler.initGuild(guild.id)
+
   });
 
 // client.on("suggest",(msg)=>{
