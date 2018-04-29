@@ -19,12 +19,12 @@ class IssuesHandler {
    * @memberof Datastore
    */
   create(issue) {
-    this.sequelize;
-    return { 
-      gid: gid, 
-      type: type, 
-      igid: igid,
-      guildId:guildId }
+    console.log(issue)
+    // return { 
+    //   gid: gid, 
+    //   type: type, 
+    //   igid: igid,
+    //   guildId:guildId }
   }
 
   /**

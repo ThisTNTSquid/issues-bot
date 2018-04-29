@@ -19,8 +19,17 @@ class AboutCommand extends Commando.Command {
         .setColor([255, 185, 0])
         .setTitle("COFFEE")
         .setDescription("A simple discord issue tracking and management bot")
-        .addField("Written In", "Discord.JS", true)
-        .addField("Version", "idk meh~", true)
+        .addField("Version", "[In-development]", true)
+        .addField(
+          "Contributers",
+          "I have a sad life, there isn't any contributors other than me",
+          true
+        )
+        .addField(
+          "Written with",
+          "Discord.JS - A cool discord API implementation in Javascript",
+          true
+        )
         .addBlankField()
         .addField("Github", "https://github.com/ThisTNTSquid/issues-bot")
         .setTimestamp()
