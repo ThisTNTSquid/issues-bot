@@ -4,11 +4,6 @@ const Logger = require("./src/utils/Logger");
 const sqlite = require("sqlite");
 const fs = require("fs");
 const DiscordJS = require("discord.js");
-const IssuesHandler = require("./src/IssuesHandler"),
-  issuesHandler = new IssuesHandler({
-    dialect: "sqlite",
-    storage: "../data.db"
-  });
 
 // load config
 let config;
@@ -119,5 +114,3 @@ bot.on("debug", msg => {
 });
 
 bot.login(config.token);
-
-module.exports.issuesHandler=issuesHandler

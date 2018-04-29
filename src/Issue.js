@@ -1,5 +1,5 @@
 const DiscordJS = require("discord.js");
-const issuesHandler = require("../index").issuesHandler;
+const issuesHandler = require('./IssuesHandler')
 const config = require("../config");
 
 class Issue {
@@ -33,7 +33,7 @@ class Issue {
       return;
     }
 
-    issuesHandler.create(this);
+    console.log(issuesHandler)
     // Record it to the database
   }
 }
