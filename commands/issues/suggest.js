@@ -32,6 +32,12 @@ class SuggestCommand extends Commando.Command {
       content,
       IssueTypes.SUGGESTION
     ).create();
+    msg.delete();
+    msg.channel
+      .send("✅ Your suggestion is posted on the suggestion channel!")
+      .then(feedback => {
+        setTimeout(() => feedback.delete(), 2500);
+      });
   }
 }
 module.exports = SuggestCommand;
