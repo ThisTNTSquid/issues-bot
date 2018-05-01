@@ -50,7 +50,10 @@ class Issue {
             data.type,
             data.igid
           ).build()
-        );
+        ).then(message=>{
+          // link the message to the issue
+          
+        })
     });
   }
 }
