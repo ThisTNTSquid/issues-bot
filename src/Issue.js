@@ -39,22 +39,26 @@ class Issue {
       return;
     }
 
-    issuesHandler.create(this).then(data => {
-      this.client.channels
-        .get(channelId)
-        .send(
-          new IssueEmbed(
-            data.title,
-            this.author,
-            data.content,
-            data.type,
-            data.igid
-          ).build()
-        ).then(message=>{
-          // link the message to the issue
-          issuesHandler.linkMessage(message.id,data.gid)
-        })
-    });
+    issuesHandler
+      .create(this)
+      .then(data => {
+        this.client.channels
+          .get(channelId)
+          .send(
+            new IssueEmbed(
+              data.title,
+              this.author,
+              data.content,
+              data.type,
+              data.igid
+            ).build()
+          )
+          .then(message => {
+            // link the message to the issue
+            issuesHandler.linkMessage(message.id, data.gid);
+          });
+      })
+      .catch(err => console.error(err));
   }
 }
 

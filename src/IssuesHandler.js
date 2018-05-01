@@ -60,13 +60,15 @@ module.exports = {
             title: issue.title,
             content: issue.content
           };
-          IssuesStore.create(data).then(result => {
-            data.gid=result.dataValues.id
-            console.log(data)
-            resolve(data);
-          });
-          
-        });
+          IssuesStore.create(data)
+            .then(result => {
+              data.gid = result.dataValues.id;
+              console.log(data);
+              resolve(data);
+            })
+            .catch(err => reject(err));
+        })
+        .catch(err => reject(err));
     });
 
     // send it to the channel
