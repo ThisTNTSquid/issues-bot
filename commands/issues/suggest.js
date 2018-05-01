@@ -34,9 +34,9 @@ class SuggestCommand extends Commando.Command {
     ).create();
     msg.delete();
     msg.channel
-      .send("✅ Your suggestion is posted on the suggestion channel!")
+      .send("✅ Your suggestion has been posted on the suggestion channel!")
       .then(feedback => {
-        setTimeout(() => feedback.delete(), 2500);
+        setTimeout(() => feedback.delete(), 5000);
       });
   }
 }

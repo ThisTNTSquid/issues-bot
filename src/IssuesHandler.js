@@ -29,12 +29,12 @@ IssueMessage.belongsTo(IssuesStore, { foreignKey: "issueId" });
 
 module.exports = {
   create(issue) {
-    console.log({
-      ty: issue.type,
-      ti: issue.title,
-      co: issue.content,
-      gid: issue.guild.id
-    });
+    // console.log({
+    //   ty: issue.type,
+    //   ti: issue.title,
+    //   co: issue.content,
+    //   gid: issue.guild.id
+    // });
     // Record it to the database
 
     return new Promise((resolve, reject) => {
