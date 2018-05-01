@@ -17,8 +17,9 @@ class IssueEmbed {
       )
       .setTitle(this.title)
       .setDescription(this.content)
-      .setFooter(this.author.username, this.author.avatarURL);
+      .setFooter(this.author.username, this.author.avatarURL)
+      .setTimestamp();
     return embed;
   }
 }
-module.exports = IssueEmbedTemplate;
+module.exports = IssueEmbed;
