@@ -52,7 +52,7 @@ class Issue {
           ).build()
         ).then(message=>{
           // link the message to the issue
-          
+          issuesHandler.linkMessage(message.id,data.gid)
         })
     });
   }

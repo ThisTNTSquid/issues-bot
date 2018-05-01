@@ -22,6 +22,10 @@ const GuildsStore = sequelize.define("counters", {
   guild: Sequelize.INTEGER,
   issue_count: Sequelize.INTEGER
 });
+const IssueMessage = sequelize.define("issue_messages", {
+  messageId: Sequelize.STRING
+});
+IssueMessage.belongsTo(IssuesStore, { foreignKey: "issueId" });
 
 module.exports = {
   create(issue) {
@@ -56,8 +60,12 @@ module.exports = {
             title: issue.title,
             content: issue.content
           };
-          IssuesStore.create(data);
-          resolve(data)
+          IssuesStore.create(data).then(result => {
+            data.gid=result.dataValues.id
+            console.log(data)
+            resolve(data);
+          });
+          
         });
     });
 
@@ -80,7 +88,8 @@ module.exports = {
   },
 
   getGid(guildId, igid, type) {
-    // db query
+    // TODO: Tasks pending completion -@ThisTNTSquid at 5/1/2018, 7:01:57 PM
+    // Get the Global ID of the issue
   },
   initGuild(guildId) {
     GuildsStore.findOrCreate({
@@ -93,6 +102,17 @@ module.exports = {
       } else {
         console.error("counter cannot be added");
       }
+    });
+  },
+  /**
+   *
+   * @param {StringResolvable} messageId Message ID
+   * @param {*} issueGid Global ID of the issue
+   */
+  linkMessage(messageId, issueGid) {
+    IssueMessage.create({
+      messageId: messageId,
+      issueId: issueGid
     });
   }
 };
