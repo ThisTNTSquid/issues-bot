@@ -4,6 +4,7 @@ const Logger = require("./src/utils/Logger");
 const sqlite = require("sqlite");
 const fs = require("fs");
 const DiscordJS = require("discord.js");
+const issueHandler = require('./src/IssuesHandler')
 
 // load config
 let config;
@@ -30,17 +31,9 @@ bot
     log.info("Bot Started");
     log.info("Invite the bot to your server with");
     try {
-      let link = await bot.generateInvite([
-        "ADD_REACTIONS",
-        "VIEW_CHANNEL",
-        "SEND_MESSAGES",
-        "READ_MESSAGE_HISTORY",
-        "MANAGE_MESSAGES",
-        "EMBED_LINKS",
-        "USE_EXTERNAL_EMOJIS",
-        "MENTION_EVERYONE",
-        "ATTACH_FILES"
-      ]);
+      let link = await bot.generateInvite(
+        require("./src/utils/BotPermissions")
+      );
       log.info(link);
     } catch (e) {
       console.error(e);
@@ -49,15 +42,13 @@ bot
   .on("message", msg => {
     if (msg.author.bot || msg.channel.type == "dm") return;
 
-    // TODO: Add back when its able to get prefix from db -@ThisTNTSquid at 4/27/2018, 4:42:35 AM
-    //
-    // if (msg.content.startsWith(config.command_prefix)) {
-    //   log.info(
-    //     `[CMD] (${msg.guild.name}->#${msg.channel.name}) ${
-    //       msg.author.username
-    //     }: ${msg.content}`
-    //   );
-    // }
+    if (msg.content.startsWith(msg.guild.settings.get("prefix"))) {
+      log.info(
+        `[CMD] (${msg.guild.name}->#${msg.channel.name}) ${
+          msg.author.username
+        }: ${msg.content}`
+      );
+    }
     // let msgArray = msg.content.split(" ");
     // let command = msgArray[0];
     // let args = msgArray.slice(1);
@@ -83,19 +74,18 @@ bot
     //       .setFooter(msg.author.username, msg.author.avatarURL)
     //   );
     // } else if (command == `${prefix}leave-server`) {
-    //   if (msg.member.hasPermission("ADMINISTRATOR")) {
-    //     msg.channel.send(":walking: Leaving your server.... See you :(");
-    //     bot.guilds.get(msg.guild.id).leave();
-    //   } else {
-    //     msg.channel.send(
-    //       "You do not have enough permission to remove me yet, please contact the server administrator if you really wanted to do this"
-    //     );
-    //   }
+
     // }
   })
   .on("error", e => console.error(e))
   .on("guildDelete", guild => {
-    log.info(`[LEAVE] Bot left guild \'${guild.name}\' (${guild.id})`);
+    log.info(`[LEAVE] (-) Bot left guild \'${guild.name}\' (${guild.id})`);
+  })
+  .on("guildCreate", guild => {
+    log.info(`[JOIN] (+) Bot joined guild \'${guild.name}\' (${guild.id})`);
+    guild.settings.set("prefix", config.command_prefix);
+    issueHandler.initGuild(guild.id)
+
   });
 
 // client.on("suggest",(msg)=>{
@@ -113,13 +103,17 @@ bot
 
 // Load commands folder
 bot.registry
-  .registerGroups([["issues", "Opening issues"], ["misc", "Misc Commands"]])
+  .registerGroups([
+    ["issues", "Opening issues"],
+    ["misc", "Misc Commands"],
+    ["admin", "Bot Administrator"]
+  ])
   .registerDefaults()
   .registerCommandsIn(path.join(__dirname, "commands"))
   .registerTypesIn(path.join(__dirname, "types"));
 
-bot.on('debug',msg=>{
-  log.debug(msg)
-})
+bot.on("debug", msg => {
+  log.debug(msg);
+});
 
 bot.login(config.token);
