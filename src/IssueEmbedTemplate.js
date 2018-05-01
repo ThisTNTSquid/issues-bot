@@ -1,11 +1,24 @@
-const DiscordJS = require('discord.js')
-class IssueEmbedTemplate{
-  constructor(title,author,content,type){
-    
+const DiscordJS = require("discord.js");
+const IssueTypes = require("./IssueTypes");
+class IssueEmbed {
+  constructor(title, author, content, type, igid) {
+    this.title = title;
+    this.author = author;
+    this.content = content;
+    this.type = type;
+    this.igid = igid;
   }
 
-  build(){
-    return DiscordJS.RichEmbed()
+  build() {
+    let embed = new DiscordJS.RichEmbed()
+      .setAuthor(
+        `Issue #${this.igid} - ${IssueTypes.getDetail(this.type).name}`,
+        IssueTypes.getDetail(this.type).image
+      )
+      .setTitle(this.title)
+      .setDescription(this.content)
+      .setFooter(this.author.username, this.author.avatarURL);
+    return embed;
   }
 }
-module.exports=IssueEmbedTemplate
+module.exports = IssueEmbedTemplate;

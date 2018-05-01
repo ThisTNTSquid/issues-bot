@@ -20,7 +20,6 @@ const IssuesStore = sequelize.define("issues", {
 });
 const GuildsStore = sequelize.define("counters", {
   guild: Sequelize.INTEGER,
-  suggestion_count: Sequelize.INTEGER,
   issue_count: Sequelize.INTEGER
 });
 
@@ -29,10 +28,40 @@ module.exports = {
     console.log({
       ty: issue.type,
       ti: issue.title,
-      co: issue.content
+      co: issue.content,
+      gid: issue.guild.id
+    });
+    // Record it to the database
+
+    return new Promise((resolve, reject) => {
+      sequelize
+        .query(
+          `UPDATE counters SET issue_count=issue_count+1 WHERE guild=${
+            issue.guild.id
+          }`
+        )
+        .then(async () => {
+          let inGuildIssueId = await GuildsStore.findOne({
+            where: { guild: issue.guild.id },
+            attributes: ["issue_count"]
+          }).then(queryResult => {
+            return queryResult.dataValues.issue_count;
+          });
+          // console.log(inGuildIssueId);
+
+          let data = {
+            guild: issue.guild.id,
+            type: issue.type,
+            igid: inGuildIssueId,
+            title: issue.title,
+            content: issue.content
+          };
+          IssuesStore.create(data);
+          resolve(data)
+        });
     });
 
-    // Create a record in database
+    // send it to the channel
 
     // console.log(sequelize)
     // return {
@@ -56,7 +85,7 @@ module.exports = {
   initGuild(guildId) {
     GuildsStore.findOrCreate({
       where: { guild: guildId },
-      defaults: { suggestion_count: 0, issue_count: 0 }
+      defaults: { issue_count: 0 }
     }).spread((guild, created) => {
       // console.log(guild);
       if (created) {

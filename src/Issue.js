@@ -39,8 +39,7 @@ class Issue {
       return;
     }
 
-    issuesHandler.create(this);
-    // Record it to the database
+    issuesHandler.create(this).then(data => console.log(data));
   }
 }
 
