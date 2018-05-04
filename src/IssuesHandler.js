@@ -88,6 +88,10 @@ module.exports = {
   delete(gid) {
     //something
   },
+  resend(gid){
+
+    // linkMessage(sent_message_id,gid)
+  },
 
   getGid(guildId, igid, type) {
     // TODO: Tasks pending completion -@ThisTNTSquid at 5/1/2018, 7:01:57 PM
