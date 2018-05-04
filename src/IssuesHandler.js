@@ -71,6 +71,7 @@ module.exports = {
         .catch(err => reject(err));
     });
 
+
     // send it to the channel
 
     // console.log(sequelize)
@@ -82,7 +83,7 @@ module.exports = {
   },
 
   replace(gid, issue) {
-    //some code
+    //some code here
   },
 
   delete(gid) {
