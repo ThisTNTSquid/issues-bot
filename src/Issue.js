@@ -11,8 +11,8 @@ class Issue {
     this.guild = message.guild;
     this.channel = message.channel;
     this.author = message.author;
-    this.title = content.split("::")[0];
-    this.content = content.split("::")[1];
+    this.title = content.split(message.guild.settings.get("separator"))[0];
+    this.content = content.split(message.guild.settings.get("separator"))[1];
   }
 
   setTitle(title) {

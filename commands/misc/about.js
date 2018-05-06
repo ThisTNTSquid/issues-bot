@@ -32,6 +32,7 @@ class AboutCommand extends Commando.Command {
         )
         .addBlankField()
         .addField("Github", "https://github.com/ThisTNTSquid/issues-bot")
+        .addField("Sponsored by", "My Mum")
         .setTimestamp()
         .setFooter("Made with 🐸 and ☕ by ThisTNTSquid")
     );

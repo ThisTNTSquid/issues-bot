@@ -28,6 +28,12 @@ const IssueMessage = sequelize.define("issue_messages", {
 IssueMessage.belongsTo(IssuesStore, { foreignKey: "issueId" });
 
 module.exports = {
+  /**
+   *
+   *
+   * @param {any} issue Issue Object
+   * @returns Promise<CreationData>
+   */
   create(issue) {
     // console.log({
     //   ty: issue.type,
@@ -71,7 +77,6 @@ module.exports = {
         .catch(err => reject(err));
     });
 
-
     // send it to the channel
 
     // console.log(sequelize)
@@ -89,14 +94,25 @@ module.exports = {
   delete(gid) {
     //something
   },
-  resend(gid){
 
+  
+  resend(gid) {
     // linkMessage(sent_message_id,gid)
   },
 
+  /**
+   * 
+   * 
+   * @param {any} guildId 
+   * @param {any} igid 
+   * @param {any} type 
+   * @returns Global ID of issue
+   */
   getGid(guildId, igid, type) {
     // TODO: Tasks pending completion -@ThisTNTSquid at 5/1/2018, 7:01:57 PM
     // Get the Global ID of the issue
+    let gid = 0;
+    return gid;
   },
   initGuild(guildId) {
     GuildsStore.findOrCreate({

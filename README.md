@@ -1,7 +1,14 @@
-# Simple Issues Bot
+# Coffee - A Simple Issues Bot
 
-Since there is aren't any ready to use suggestion bots , or I would say bots that could handle bug reports and issues now (at least at the time when I start the devvelopment),
-I decide to make this bot, and do the development job for you :)
+![Coffee](./assets/coffee.png)
+
+Companion for developers to handles suggestions and issues
+
+## Features
+- [x] Posting Issues
+- [ ] Editing/Replacing Issues
+- [ ] Listing posted issues in a guild
+- [ ] Resending Issues
 
 ## Setup
 
@@ -11,9 +18,11 @@ This method is recommanded if you wish to use it instantly or don't want to deal
 
 Click this link here: https://discordapp.com/oauth2/authorize?client_id=436174065292804106&permissions=519232&scope=bot
 
-**Notice: this link may not work until the bot is officially released**
+
 
 ### Host it yourself
+
+**Notice: To prevent features breaking due to constant updates in the ALPHA period, please consider testing out the bot by inviting it to your server with the link above instead of hosting it yourself**
 
 #### 1. Clone it
 ```bash
